@@ -1,0 +1,57 @@
+﻿@using WebLibrary.Models
+@model Category
+
+<div class="lib-page-wrap">
+    <nav class="lib-breadcrumb">
+        <i class="ti ti-layout-grid"></i>
+        <a asp-controller="Category" asp-action="Index">Categories</a>
+        <i class="ti ti-chevron-right"></i>
+        <span>Edit category</span>
+    </nav>
+
+    <div class="lib-card">
+        <div class="lib-card-header">
+            <div class="lib-header-icon">
+                <i class="ti ti-edit"></i>
+            </div>
+            <div>
+                <h2>Edit category</h2>
+                <p>Update the details for this category</p>
+            </div>
+        </div>
+
+        <form method="post">
+            <input asp-for="Id" hidden />
+
+            <div class="lib-card-body">
+                <div class="lib-field">
+                    <label asp-for="Name">Name</label>
+                    <input asp-for="Name" type="text" placeholder="e.g. Science Fiction" />
+                    <span class="lib-hint">This will appear in navigation and filters</span>
+                    <span asp-validation-for="Name" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="DisplayOrder">Display order</label>
+                    <input asp-for="DisplayOrder" type="text" placeholder="e.g. 1" />
+                    <span class="lib-hint">Lower numbers appear first</span>
+                    <span asp-validation-for="DisplayOrder" class="lib-validation"></span>
+                </div>
+            </div>
+
+            <div class="lib-card-footer">
+                <button type="submit" class="lib-btn-primary">
+                    <i class="ti ti-device-floppy"></i>
+                    Save changes
+                </button>
+                <a asp-controller="Category" asp-action="Index" class="lib-btn-secondary">
+                    <i class="ti ti-arrow-left"></i>
+                    Back
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

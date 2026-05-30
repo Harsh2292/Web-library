@@ -1,0 +1,56 @@
+﻿@using WebLibrary.Models
+@model List<Category>
+
+<div class="lib-page-wrap" style="max-width:720px;">
+
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem;">
+        <div>
+            <h1 style="font-size:20px; font-weight:600; color:#111; margin:0;">Categories</h1>
+            <p style="font-size:13px; color:#6b7280; margin:3px 0 0;">@Model.Count categor@(Model.Count == 1 ? "y" : "ies") in your library</p>
+        </div>
+        <a asp-controller="Category" asp-action="Create" class="lib-btn-primary" style="text-decoration:none;">
+            <i class="ti ti-plus"></i>
+            New category
+        </a>
+    </div>
+
+    <div class="lib-card">
+        @if (!Model.Any())
+        {
+            <div class="lib-empty">
+                <i class="ti ti-tag" aria-hidden="true"></i>
+                No categories yet — add your first one above.
+            </div>
+        }
+        else
+        {
+            <table class="lib-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Display order</th>
+                        <th class="td-actions"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderBy(x => x.DisplayOrder))
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td class="td-muted">@item.DisplayOrder</td>
+                            <td class="td-actions">
+                                <a asp-controller="Category" asp-action="Edit" asp-route-id="@item.Id" class="lib-icon-btn edit" title="Edit">
+                                    <i class="ti ti-pencil" style="font-size:15px;" aria-hidden="true"></i>
+                                </a>
+                                <a asp-controller="Category" asp-action="Delete" asp-route-id="@item.Id" class="lib-icon-btn delete" title="Delete">
+                                    <i class="ti ti-trash" style="font-size:15px;" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+</div>

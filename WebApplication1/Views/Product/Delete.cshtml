@@ -1,0 +1,60 @@
+﻿@using WebLibrary.Models
+@model Category
+
+<div class="lib-page-wrap">
+    <nav class="lib-breadcrumb">
+        <i class="ti ti-layout-grid"></i>
+        <a asp-controller="Category" asp-action="Index">Categories</a>
+        <i class="ti ti-chevron-right"></i>
+        <span>Delete category</span>
+    </nav>
+
+    <div class="lib-card">
+        <div class="lib-card-header">
+            <div class="lib-header-icon" style="background:#FEE2E2;">
+                <i class="ti ti-trash" style="color:#dc2626;"></i>
+            </div>
+            <div>
+                <h2>Delete category</h2>
+                <p>This action cannot be undone</p>
+            </div>
+        </div>
+
+        <form method="post">
+            <input asp-for="Id" hidden />
+
+            <div class="lib-card-body">
+                <div class="lib-field">
+                    <label asp-for="Name">Name</label>
+                    <input asp-for="Name" type="text" readonly />
+                </div>
+                <div class="lib-field">
+                    <label asp-for="DisplayOrder">Display order</label>
+                    <input asp-for="DisplayOrder" type="text" readonly />
+                </div>
+
+                <div style="display:flex; align-items:center; gap:10px; padding:12px 14px;
+                    background:#FEF2F2; border:0.5px solid #FECACA;
+                    border-radius:8px; font-size:13px; color:#991b1b;">
+                    <i class="ti ti-alert-triangle" style="font-size:16px; flex-shrink:0;"></i>
+                    Are you sure you want to permanently delete <strong style="margin:0 3px;">@Model?.Name</strong>?
+                </div>
+            </div>
+
+            <div class="lib-card-footer">
+                <button type="submit" class="lib-btn-danger">
+                    <i class="ti ti-trash"></i>
+                    Delete category
+                </button>
+                <a asp-controller="Category" asp-action="Index" class="lib-btn-secondary">
+                    <i class="ti ti-arrow-left"></i>
+                    Back
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
