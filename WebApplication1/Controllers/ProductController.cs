@@ -5,6 +5,7 @@ using WebLibrary.Data;
 using WebLibrary.DataAccess.Repository.IRepository;
 using WebLibrary.Models;
 using WebLibrary.Models.ViewModels;
+using WebLibrary.Utilities.ValidationAttributes;
 
 namespace WebLibrary.Controllers
 {
@@ -14,10 +15,11 @@ namespace WebLibrary.Controllers
         private readonly ICategoryRepository _categoryRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository)
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, IWebHostEnvironment webHostEnvironment)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -42,14 +44,23 @@ namespace WebLibrary.Controllers
             return View(productVM);
         }
         [HttpPost]
-        public IActionResult Create(ProductVM productVM , IFormFile? formFile)
+        public IActionResult Create(ProductVM productVM, [ExternalValidationAttributes] IFormFile? formFile)
         {
             //Validations(product);
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
-                if (!wwwRootPath.IsNullOrEmpty() && formFile != null) {
-                
+                if (!wwwRootPath.IsNullOrEmpty() && formFile != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(formFile.FileName);
+                    string path = Path.Combine(wwwRootPath, @"images/product");
+
+                    using (var fileStream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                    {
+                        formFile.CopyTo(fileStream);
+                    };
+
+                    productVM.Product.ImageUrl = @"\images\product\" + fileName;
                 }
                 _productRepository.Add(productVM.Product);
                 _productRepository.Save();
@@ -63,33 +74,37 @@ namespace WebLibrary.Controllers
                     Text = u.Name,
                     Value = u.Id.ToString()
                 });
+                if (ModelState.ContainsKey("formFile") && ModelState["formFile"]?.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
+                {
+                    var errorMessage = ModelState["formFile"]?.Errors.FirstOrDefault()?.ErrorMessage;                  
+                    ModelState.AddModelError("Product.ImageUrl", errorMessage ?? "The uploaded file is not a valid image.");
+                }
                 return View(productVM);
-            }
-            return View();
+            }            
         }
 
         public IActionResult Edit(int? id)
         {
+            ProductVM productVM = new ProductVM();
             if (id == null || id == 0)
             {
                 return NotFound();
             }
-            Product product = _productRepository.Get(u => u.Id == id);
+            productVM.Product = _productRepository.Get(u => u.Id == id);
 
-            if (product == null)
+            if (productVM == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(productVM);
         }
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(ProductVM productVM)
         {
-            Validations(product);
             if (ModelState.IsValid)
             {
-                _productRepository.Update(product);
+                _productRepository.Update(productVM.Product);
                 _productRepository.Save();
                 TempData["success"] = "Category Updated successfully";
                 return RedirectToAction("Index", "Category");
@@ -125,18 +140,10 @@ namespace WebLibrary.Controllers
             {
                 _productRepository.Remove(product);
                 _productRepository.Save();
-                TempData["success"] = "Category Deleted successfully";
-                return RedirectToAction("Index", "Category");
+                TempData["success"] = "Product Deleted successfully";
+                return RedirectToAction("Index", "Product");
             }
             return View();
-        }
-
-        public void Validations(Product product)
-        {
-            //if (product.Name == product.DisplayOrder.ToString())
-            //{
-            //    ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
-            //}
         }
     }
 }

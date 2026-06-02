@@ -1,5 +1,6 @@
 ﻿@using WebLibrary.Models
-@model Product
+@using WebLibrary.Models.ViewModels
+@model ProductVM
 
 <div class="lib-page-wrap">
     <nav class="lib-breadcrumb">
@@ -20,39 +21,51 @@
             </div>
         </div>
 
-        <form method="post">
-            <input asp-for="Id" hidden />
+        <form method="post" enctype="multipart/form-data">
+            <input asp-for="Product.Id" hidden />
 
             <div class="lib-card-body">
                 <div class="lib-field">
-                    <label asp-for="Title">Title</label>
-                    <input asp-for="Title" type="text" placeholder="Title of the book" />
-                    <span asp-validation-for="Title" class="lib-validation"></span>
+                    <label asp-for="Product.Title">Title</label>
+                    <input asp-for="Product.Title" type="text" placeholder="Title of the book" />
+                    <span asp-validation-for="Product.Title" class="lib-validation"></span>
                 </div>
                 <div class="lib-field">
-                    <label asp-for="Description">Description</label>
-                    <textarea asp-for="Description" type="text" placeholder="About book" ></textarea>
-                    <span asp-validation-for="Description" class="lib-validation"></span>
+                    <label asp-for="Product.Description">Description</label>
+                    <textarea asp-for="Product.Description" type="text" placeholder="About book"></textarea>
+                    <span asp-validation-for="Product.Description" class="lib-validation"></span>
                 </div>
                 <div class="lib-field">
-                    <label asp-for="Isbn">Isbn</label>
-                    <input asp-for="Isbn" type="text" placeholder="e.g. 978-0-306-40615-7" />
-                    <span asp-validation-for="Isbn" class="lib-validation"></span>
+                    <label asp-for="Product.Isbn">Isbn</label>
+                    <input asp-for="Product.Isbn" type="text" placeholder="e.g. 978-0-306-40615-7" />
+                    <span asp-validation-for="Product.Isbn" class="lib-validation"></span>
                 </div>
                 <div class="lib-field">
-                    <label asp-for="Author">Author</label>
-                    <input asp-for="Author" type="text" placeholder="e.g. Harsh" />
-                    <span asp-validation-for="Author" class="lib-validation"></span>
+                    <label asp-for="Product.Author">Author</label>
+                    <input asp-for="Product.Author" type="text" placeholder="e.g. Harsh" />
+                    <span asp-validation-for="Product.Author" class="lib-validation"></span>
                 </div>
                 <div class="lib-field">
-                    <label asp-for="ListPrice">List Price</label>
-                    <input asp-for="ListPrice" type="text" placeholder="e.g. 100" />
-                    <span asp-validation-for="ListPrice" class="lib-validation"></span>
+                    <label asp-for="Product.ListPrice">List Price</label>
+                    <input asp-for="Product.ListPrice" type="text" placeholder="e.g. 100" />
+                    <span asp-validation-for="Product.ListPrice" class="lib-validation"></span>
                 </div>
                 <div class="lib-field">
-                    <label asp-for="Price">Price</label>
-                    <input asp-for="Price" type="text" placeholder="e.g. 100" />
-                    <span asp-validation-for="Price" class="lib-validation"></span>
+                    <label asp-for="Product.Price">Price</label>
+                    <input asp-for="Product.Price" type="text" placeholder="e.g. 100" />
+                    <span asp-validation-for="Product.Price" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="Product.CategoryId">Category</label>
+                    <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList">
+                        <option disabled selected>-- Select Category --</option>
+                    </select>
+                    <span asp-validation-for="Product.CategoryId" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="Product.ImageUrl">Upload Coverpage</label>
+                    <input type="file" />
+                    <span asp-validation-for="Product.ImageUrl" class="lib-validation"></span>
                 </div>
             </div>
 
@@ -71,5 +84,29 @@
 </div>
 
 @section Scripts {
+    <script>
+        tinymce.init({
+          selector: 'textarea',
+          plugins: [
+            // Core editing features
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+            // Your account includes a free trial of TinyMCE premium features
+            // Try the most popular premium features until Jun 16, 2026:
+            'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'advtemplate', 'tinymceai', 'uploadcare', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+          ],
+          toolbar: 'undo redo | tinymceai-chat tinymceai-quickactions tinymceai-review | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'Author name',
+          mergetags_list: [
+            { value: 'First.Name', title: 'First Name' },
+            { value: 'Email', title: 'Email' },
+          ],
+          tinymceai_token_provider: async () => {
+            await fetch(`https://demo.api.tiny.cloud/1/s0j4tem4anlwsg1pl3ohdxem2z1pl55bys0ndmzbta9xe4lu/auth/random`, { method: "POST", credentials: "include" });
+            return { token: await fetch(`https://demo.api.tiny.cloud/1/s0j4tem4anlwsg1pl3ohdxem2z1pl55bys0ndmzbta9xe4lu/jwt/tinymceai`, { credentials: "include" }).then(r => r.text()) };
+          },
+          uploadcare_public_key: 'e232b2e0544ff646c659',
+        });
+    </script>
     <partial name="_ValidationScriptsPartial" />
 }

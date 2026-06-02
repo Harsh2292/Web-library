@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<!-- ADD THIS LINE BELOW TO ACCESS IFORMFILE WITHOUT LOADING HEAVY PACKAGES -->
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
 </Project>

@@ -9222,3 +9222,47 @@ legend {
     .lib-field select option:disabled {
         color: var(--text-tertiary);
     }
+
+.lib-field input[type="file"] {
+    height: auto;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 0.5px dashed var(--border);
+    background: var(--bg-hover);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    width: 100%;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+    .lib-field input[type="file"]:hover {
+        border-color: var(--accent);
+        background: var(--accent-subtle);
+    }
+
+    .lib-field input[type="file"]:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(29,158,117,0.12);
+    }
+
+    .lib-field input[type="file"]::file-selector-button {
+        height: 28px;
+        padding: 0 12px;
+        border-radius: 6px;
+        border: none;
+        background: var(--accent);
+        color: #fff;
+        font-size: 13px;
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 500;
+        cursor: pointer;
+        margin-right: 10px;
+        transition: background 0.15s;
+    }
+
+        .lib-field input[type="file"]::file-selector-button:hover {
+            background: var(--accent-dark);
+        }
