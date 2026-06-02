@@ -1,12 +1,13 @@
 ﻿@using WebLibrary.Models
-@model Category
+@using WebLibrary.Models.ViewModels
+@model ProductVM
 
 <div class="lib-page-wrap">
     <nav class="lib-breadcrumb">
         <i class="ti ti-layout-grid"></i>
-        <a asp-controller="Category" asp-action="Index">Categories</a>
+        <a asp-controller="Product" asp-action="Index">Products</a>
         <i class="ti ti-chevron-right"></i>
-        <span>New category</span>
+        <span>New Product</span>
     </nav>
 
     <div class="lib-card">
@@ -15,33 +16,63 @@
                 <i class="ti ti-tag"></i>
             </div>
             <div>
-                <h2>Create category</h2>
-                <p>Add a new category to organize your library</p>
+                <h2>Create Product</h2>
+                <p>Add a new Product</p>
             </div>
         </div>
 
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="lib-card-body">
                 <div class="lib-field">
-                    <label asp-for="Name">Name</label>
-                    <input asp-for="Name" type="text" placeholder="e.g. Science Fiction" />
-                    <span class="lib-hint">This will appear in navigation and filters</span>
-                    <span asp-validation-for="Name" class="lib-validation"></span>
+                    <label asp-for="Product.Title">Title</label>
+                    <input asp-for="Product.Title" type="text" placeholder="Title of the book" />
+                    <span asp-validation-for="Product.Title" class="lib-validation"></span>
                 </div>
                 <div class="lib-field">
-                    <label asp-for="DisplayOrder">Display order</label>
-                    <input asp-for="DisplayOrder" type="text" placeholder="e.g. 1" />
-                    <span class="lib-hint">Lower numbers appear first</span>
-                    <span asp-validation-for="DisplayOrder" class="lib-validation"></span>
+                    <label asp-for="Product.Description">Description</label>
+                    <textarea asp-for="Product.Description" type="text" placeholder="About book"></textarea>
+                    <span asp-validation-for="Product.Description" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="Product.Isbn">Isbn</label>
+                    <input asp-for="Product.Isbn" type="text" placeholder="e.g. 978-0-306-40615-7" />
+                    <span asp-validation-for="Product.Isbn" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="Product.Author">Author</label>
+                    <input asp-for="Product.Author" type="text" placeholder="e.g. Harsh" />
+                    <span asp-validation-for="Product.Author" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="Product.ListPrice">List Price</label>
+                    <input asp-for="Product.ListPrice" type="text" placeholder="e.g. 100" />
+                    <span asp-validation-for="Product.ListPrice" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="Product.Price">Price</label>
+                    <input asp-for="Product.Price" type="text" placeholder="e.g. 100" />
+                    <span asp-validation-for="Product.Price" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="Product.CategoryId">Category</label>
+                    <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList">
+                        <option disabled selected>-- Select Category --</option>
+                    </select>
+                    <span asp-validation-for="Product.CategoryId" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="Product.ImageUrl">Upload Coverpage</label>
+                    <input type="file" />
+                    <span asp-validation-for="Product.ImageUrl" class="lib-validation"></span>
                 </div>
             </div>
 
             <div class="lib-card-footer">
                 <button type="submit" class="lib-btn-primary">
                     <i class="ti ti-check"></i>
-                    Create category
+                    Create Product
                 </button>
-                <a asp-controller="Category" asp-action="Index" class="lib-btn-secondary">
+                <a asp-controller="Product" asp-action="Index" class="lib-btn-secondary">
                     <i class="ti ti-arrow-left"></i>
                     Back
                 </a>
@@ -51,5 +82,29 @@
 </div>
 
 @section Scripts {
+    <script>
+        tinymce.init({
+          selector: 'textarea',
+          plugins: [
+            // Core editing features
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+            // Your account includes a free trial of TinyMCE premium features
+            // Try the most popular premium features until Jun 16, 2026:
+            'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'advtemplate', 'tinymceai', 'uploadcare', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+          ],
+          toolbar: 'undo redo | tinymceai-chat tinymceai-quickactions tinymceai-review | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'Author name',
+          mergetags_list: [
+            { value: 'First.Name', title: 'First Name' },
+            { value: 'Email', title: 'Email' },
+          ],
+          tinymceai_token_provider: async () => {
+            await fetch(`https://demo.api.tiny.cloud/1/s0j4tem4anlwsg1pl3ohdxem2z1pl55bys0ndmzbta9xe4lu/auth/random`, { method: "POST", credentials: "include" });
+            return { token: await fetch(`https://demo.api.tiny.cloud/1/s0j4tem4anlwsg1pl3ohdxem2z1pl55bys0ndmzbta9xe4lu/jwt/tinymceai`, { credentials: "include" }).then(r => r.text()) };
+          },
+          uploadcare_public_key: 'e232b2e0544ff646c659',
+        });
+    </script>
     <partial name="_ValidationScriptsPartial" />
 }

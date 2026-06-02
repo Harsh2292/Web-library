@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebLibrary.Data;
 
@@ -10,9 +11,11 @@ using WebLibrary.Data;
 namespace WebLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260601110435_AddCategoryIdToProduct")]
+    partial class AddCategoryIdToProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,9 +83,6 @@ namespace WebLibrary.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Isbn")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -110,7 +110,6 @@ namespace WebLibrary.Migrations
                             Author = "Billy Spark",
                             CategoryId = 2,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ImageUrl = "",
                             Isbn = "SWD9999001",
                             ListPrice = 99,
                             Price = 90.0,
@@ -133,7 +132,6 @@ namespace WebLibrary.Migrations
                             Author = "Julian Button",
                             CategoryId = 2,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ImageUrl = "",
                             Isbn = "RITO5555501",
                             ListPrice = 55,
                             Price = 50.0,
@@ -145,7 +143,6 @@ namespace WebLibrary.Migrations
                             Author = "Abby Muscles",
                             CategoryId = 1,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ImageUrl = "",
                             Isbn = "WS3333333301",
                             ListPrice = 70,
                             Price = 65.0,
@@ -157,7 +154,6 @@ namespace WebLibrary.Migrations
                             Author = "Ron Parker",
                             CategoryId = 1,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ImageUrl = "",
                             Isbn = "SOTJ1111111101",
                             ListPrice = 30,
                             Price = 27.0,
@@ -169,7 +165,6 @@ namespace WebLibrary.Migrations
                             Author = "Laura Phantom",
                             CategoryId = 2,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ImageUrl = "",
                             Isbn = "FOT000000001",
                             ListPrice = 25,
                             Price = 0.0,

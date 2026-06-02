@@ -1,12 +1,12 @@
 ﻿@using WebLibrary.Models
-@model Category
+@model Product
 
 <div class="lib-page-wrap">
     <nav class="lib-breadcrumb">
         <i class="ti ti-layout-grid"></i>
-        <a asp-controller="Category" asp-action="Index">Categories</a>
+        <a asp-controller="Product" asp-action="Index">Products</a>
         <i class="ti ti-chevron-right"></i>
-        <span>Edit category</span>
+        <span>Edit product</span>
     </nav>
 
     <div class="lib-card">
@@ -15,8 +15,8 @@
                 <i class="ti ti-edit"></i>
             </div>
             <div>
-                <h2>Edit category</h2>
-                <p>Update the details for this category</p>
+                <h2>Edit product</h2>
+                <p>Update the details for this product</p>
             </div>
         </div>
 
@@ -25,16 +25,34 @@
 
             <div class="lib-card-body">
                 <div class="lib-field">
-                    <label asp-for="Name">Name</label>
-                    <input asp-for="Name" type="text" placeholder="e.g. Science Fiction" />
-                    <span class="lib-hint">This will appear in navigation and filters</span>
-                    <span asp-validation-for="Name" class="lib-validation"></span>
+                    <label asp-for="Title">Title</label>
+                    <input asp-for="Title" type="text" placeholder="Title of the book" />
+                    <span asp-validation-for="Title" class="lib-validation"></span>
                 </div>
                 <div class="lib-field">
-                    <label asp-for="DisplayOrder">Display order</label>
-                    <input asp-for="DisplayOrder" type="text" placeholder="e.g. 1" />
-                    <span class="lib-hint">Lower numbers appear first</span>
-                    <span asp-validation-for="DisplayOrder" class="lib-validation"></span>
+                    <label asp-for="Description">Description</label>
+                    <textarea asp-for="Description" type="text" placeholder="About book" ></textarea>
+                    <span asp-validation-for="Description" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="Isbn">Isbn</label>
+                    <input asp-for="Isbn" type="text" placeholder="e.g. 978-0-306-40615-7" />
+                    <span asp-validation-for="Isbn" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="Author">Author</label>
+                    <input asp-for="Author" type="text" placeholder="e.g. Harsh" />
+                    <span asp-validation-for="Author" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="ListPrice">List Price</label>
+                    <input asp-for="ListPrice" type="text" placeholder="e.g. 100" />
+                    <span asp-validation-for="ListPrice" class="lib-validation"></span>
+                </div>
+                <div class="lib-field">
+                    <label asp-for="Price">Price</label>
+                    <input asp-for="Price" type="text" placeholder="e.g. 100" />
+                    <span asp-validation-for="Price" class="lib-validation"></span>
                 </div>
             </div>
 
@@ -43,7 +61,7 @@
                     <i class="ti ti-device-floppy"></i>
                     Save changes
                 </button>
-                <a asp-controller="Category" asp-action="Index" class="lib-btn-secondary">
+                <a asp-controller="Product" asp-action="Index" class="lib-btn-secondary">
                     <i class="ti ti-arrow-left"></i>
                     Back
                 </a>

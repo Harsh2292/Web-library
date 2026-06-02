@@ -10,8 +10,8 @@ namespace WebLibrary.Data
 
         }
 
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Product> Product { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,7 +32,9 @@ namespace WebLibrary.Data
                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                    Isbn = "SWD9999001",
                    ListPrice = 99,
-                   Price = 90
+                   Price = 90,
+                   CategoryId = 2,
+                   ImageUrl = ""
                },
                new Product
                {
@@ -43,6 +45,7 @@ namespace WebLibrary.Data
                    Isbn = "CAW777777701",
                    ListPrice = 40,
                    Price = 30,
+                   CategoryId = 1
                },
                new Product
                {
@@ -52,7 +55,9 @@ namespace WebLibrary.Data
                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                    Isbn = "RITO5555501",
                    ListPrice = 55,
-                   Price = 50
+                   Price = 50,
+                   CategoryId = 2,
+                   ImageUrl = ""
                },
                new Product
                {
@@ -62,7 +67,9 @@ namespace WebLibrary.Data
                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                    Isbn = "WS3333333301",
                    ListPrice = 70,
-                   Price = 65
+                   Price = 65,
+                   CategoryId = 1,
+                   ImageUrl = ""
                },
                new Product
                {
@@ -72,7 +79,9 @@ namespace WebLibrary.Data
                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                    Isbn = "SOTJ1111111101",
                    ListPrice = 30,
-                   Price = 27
+                   Price = 27,
+                   CategoryId = 1,
+                   ImageUrl = ""
                },
                new Product
                {
@@ -81,7 +90,9 @@ namespace WebLibrary.Data
                    Author = "Laura Phantom",
                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                    Isbn = "FOT000000001",
-                   ListPrice = 25
+                   ListPrice = 25,
+                   CategoryId = 2,
+                   ImageUrl = ""
                }
                );
         }

@@ -21,7 +21,7 @@ namespace WebLibrary.DataAccess.Repository.IRepository
         }
         public void Update(Product product)
         {
-            _db.Products.Update(product);
+            _db.Product.Update(product);
         }
     }
 }

@@ -1,38 +1,69 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.IdentityModel.Tokens;
 using WebLibrary.Data;
 using WebLibrary.DataAccess.Repository.IRepository;
 using WebLibrary.Models;
+using WebLibrary.Models.ViewModels;
 
 namespace WebLibrary.Controllers
 {
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
         }
         public IActionResult Index()
         {
             List<Product> objectCategoryList = _productRepository.GetAll().ToList();
+            objectCategoryList.ForEach(u => u.Category = _categoryRepository.Get(c => c.Id == u.CategoryId));
+
+
             return View(objectCategoryList);
         }
 
         public IActionResult Create()
         {
-            return View();
+            ProductVM productVM = new ProductVM()
+            {
+                Product = new Product(),
+                CategoryList = _categoryRepository.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                })
+            };
+            return View(productVM);
         }
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(ProductVM productVM , IFormFile? formFile)
         {
-            Validations(product);
+            //Validations(product);
             if (ModelState.IsValid)
             {
-                _productRepository.Add(product);
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (!wwwRootPath.IsNullOrEmpty() && formFile != null) {
+                
+                }
+                _productRepository.Add(productVM.Product);
                 _productRepository.Save();
                 TempData["success"] = "Category created successfully";
-                return RedirectToAction("Index", "Category");
+                return RedirectToAction("Index", "Product");
+            }
+            else
+            {
+                productVM.CategoryList = _categoryRepository.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                });
+                return View(productVM);
             }
             return View();
         }
@@ -44,8 +75,7 @@ namespace WebLibrary.Controllers
                 return NotFound();
             }
             Product product = _productRepository.Get(u => u.Id == id);
-            //Category category1 = _db.Categories.FirstOrDefault(u => u.Id == id);
-            //Category category2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
+
             if (product == null)
             {
                 return NotFound();
