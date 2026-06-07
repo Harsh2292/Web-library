@@ -2,7 +2,7 @@
 @using WebLibrary.Models.ViewModels
 @model ProductVM
 
-<div class="lib-page-wrap">
+<div class="lib-page-wrap" style="max-width:800px;">
     <nav class="lib-breadcrumb">
         <i class="ti ti-layout-grid"></i>
         <a asp-controller="Product" asp-action="Index">Products</a>
@@ -10,74 +10,84 @@
         <span>New Product</span>
     </nav>
 
-    <div class="lib-card">
-        <div class="lib-card-header">
-            <div class="lib-header-icon">
-                <i class="ti ti-tag"></i>
+    <div style="display:flex; align-items:flex-start; gap:1.5rem;">
+        <div class="lib-card" style="flex:1;">
+            <div class="lib-card-header">
+                <div class="lib-header-icon">
+                    <i class="ti ti-tag"></i>
+                </div>
+                <div>
+                    <h2>Create Product</h2>
+                    <p>Add a new Product</p>
+                </div>
             </div>
-            <div>
-                <h2>Create Product</h2>
-                <p>Add a new Product</p>
-            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <div class="lib-card-body">
+                    <div class="lib-field">
+                        <label asp-for="Product.Title">Title</label>
+                        <input asp-for="Product.Title" type="text" placeholder="Title of the book" />
+                        <span asp-validation-for="Product.Title" class="lib-validation"></span>
+                    </div>
+                    <div class="lib-field">
+                        <label asp-for="Product.Description">Description</label>
+                        <textarea asp-for="Product.Description" type="text" placeholder="About book"></textarea>
+                        <span asp-validation-for="Product.Description" class="lib-validation"></span>
+                    </div>
+                    <div class="lib-field">
+                        <label asp-for="Product.Isbn">Isbn</label>
+                        <input asp-for="Product.Isbn" type="text" placeholder="e.g. 978-0-306-40615-7" />
+                        <span asp-validation-for="Product.Isbn" class="lib-validation"></span>
+                    </div>
+                    <div class="lib-field">
+                        <label asp-for="Product.Author">Author</label>
+                        <input asp-for="Product.Author" type="text" placeholder="e.g. Harsh" />
+                        <span asp-validation-for="Product.Author" class="lib-validation"></span>
+                    </div>
+                    <div class="lib-field">
+                        <label asp-for="Product.ListPrice">List Price</label>
+                        <input asp-for="Product.ListPrice" type="text" placeholder="e.g. 100" />
+                        <span asp-validation-for="Product.ListPrice" class="lib-validation"></span>
+                    </div>
+                    <div class="lib-field">
+                        <label asp-for="Product.Price">Price</label>
+                        <input asp-for="Product.Price" type="text" placeholder="e.g. 100" />
+                        <span asp-validation-for="Product.Price" class="lib-validation"></span>
+                    </div>
+                    <div class="lib-field">
+                        <label asp-for="Product.CategoryId">Category</label>
+                        <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList">
+                            <option disabled selected>-- Select Category --</option>
+                        </select>
+                        <span asp-validation-for="Product.CategoryId" class="lib-validation"></span>
+                    </div>
+                    <div class="lib-field">
+                        <label asp-for="Product.ImageUrl">Upload Coverpage</label>
+                        <input type="file" name="formFile" id="coverUpload" />
+                        <span asp-validation-for="Product.ImageUrl" class="lib-validation"></span>
+                    </div>
+                </div>
+
+                <div class="lib-card-footer">
+                    <button type="submit" class="lib-btn-primary">
+                        <i class="ti ti-check"></i>
+                        Create Product
+                    </button>
+                    <a asp-controller="Product" asp-action="Index" class="lib-btn-secondary">
+                        <i class="ti ti-arrow-left"></i>
+                        Back
+                    </a>
+                </div>
+            </form>
         </div>
-
-        <form method="post" enctype="multipart/form-data">
-            <div class="lib-card-body">
-                <div class="lib-field">
-                    <label asp-for="Product.Title">Title</label>
-                    <input asp-for="Product.Title" type="text" placeholder="Title of the book" />
-                    <span asp-validation-for="Product.Title" class="lib-validation"></span>
-                </div>
-                <div class="lib-field">
-                    <label asp-for="Product.Description">Description</label>
-                    <textarea asp-for="Product.Description" type="text" placeholder="About book"></textarea>
-                    <span asp-validation-for="Product.Description" class="lib-validation"></span>
-                </div>
-                <div class="lib-field">
-                    <label asp-for="Product.Isbn">Isbn</label>
-                    <input asp-for="Product.Isbn" type="text" placeholder="e.g. 978-0-306-40615-7" />
-                    <span asp-validation-for="Product.Isbn" class="lib-validation"></span>
-                </div>
-                <div class="lib-field">
-                    <label asp-for="Product.Author">Author</label>
-                    <input asp-for="Product.Author" type="text" placeholder="e.g. Harsh" />
-                    <span asp-validation-for="Product.Author" class="lib-validation"></span>
-                </div>
-                <div class="lib-field">
-                    <label asp-for="Product.ListPrice">List Price</label>
-                    <input asp-for="Product.ListPrice" type="text" placeholder="e.g. 100" />
-                    <span asp-validation-for="Product.ListPrice" class="lib-validation"></span>
-                </div>
-                <div class="lib-field">
-                    <label asp-for="Product.Price">Price</label>
-                    <input asp-for="Product.Price" type="text" placeholder="e.g. 100" />
-                    <span asp-validation-for="Product.Price" class="lib-validation"></span>
-                </div>
-                <div class="lib-field">
-                    <label asp-for="Product.CategoryId">Category</label>
-                    <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList">
-                        <option disabled selected>-- Select Category --</option>
-                    </select>
-                    <span asp-validation-for="Product.CategoryId" class="lib-validation"></span>
-                </div>
-                <div class="lib-field">
-                    <label asp-for="Product.ImageUrl">Upload Coverpage</label>
-                    <input type="file" name="formFile" />
-                    <span asp-validation-for="Product.ImageUrl" class="lib-validation"></span>
-                </div>
+        <div class="cover-preview-panel">
+            <div class="cover-preview-box" id="coverBox">
+                <i class="ti ti-photo" id="coverPlaceholderIcon"></i>
+                <span id="coverPlaceholderText">Cover preview</span>
+                <img id="coverPreviewImg" src="" alt="Cover preview" style="display:none;" />
             </div>
-
-            <div class="lib-card-footer">
-                <button type="submit" class="lib-btn-primary">
-                    <i class="ti ti-check"></i>
-                    Create Product
-                </button>
-                <a asp-controller="Product" asp-action="Index" class="lib-btn-secondary">
-                    <i class="ti ti-arrow-left"></i>
-                    Back
-                </a>
-            </div>
-        </form>
+            <p class="cover-preview-label">Book cover</p>
+        </div>
     </div>
 </div>
 
@@ -104,6 +114,22 @@
             return { token: await fetch(`https://demo.api.tiny.cloud/1/s0j4tem4anlwsg1pl3ohdxem2z1pl55bys0ndmzbta9xe4lu/jwt/tinymceai`, { credentials: "include" }).then(r => r.text()) };
           },
           uploadcare_public_key: 'e232b2e0544ff646c659',
+        });
+
+         document.getElementById('coverUpload').addEventListener('change', function () {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.getElementById('coverPreviewImg');
+                const icon = document.getElementById('coverPlaceholderIcon');
+                const text = document.getElementById('coverPlaceholderText');
+                img.src = e.target.result;
+                img.style.display = 'block';
+                icon.style.display = 'none';
+                text.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
         });
     </script>
     <partial name="_ValidationScriptsPartial" />

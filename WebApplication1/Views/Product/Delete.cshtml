@@ -4,7 +4,7 @@
 <div class="lib-page-wrap">
     <nav class="lib-breadcrumb">
         <i class="ti ti-layout-grid"></i>
-        <a asp-controller="Product" asp-action="Index">Categories</a>
+        <a asp-controller="Product" asp-action="Index">Products</a>
         <i class="ti ti-chevron-right"></i>
         <span>Delete product</span>
     </nav>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="lib-field">
                     <label asp-for="Description">Description</label>
-                    <textarea asp-for="Description" type="text" readonly></textarea>
+                    <textarea type="text" readonly>@System.Text.RegularExpressions.Regex.Replace(Model.Description, "<.*?>", string.Empty)</textarea>
                 </div>
                 <div class="lib-field">
                     <label asp-for="Isbn">Isbn</label>
