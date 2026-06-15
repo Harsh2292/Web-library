@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using WebLibrary.Data;
+using WebLibrary.Models;
 namespace WebLibrary.Areas.Identity.Pages.Account;
 
 public class ConfirmEmailChangeModel : PageModel

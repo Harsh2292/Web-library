@@ -61,19 +61,14 @@
                     <span class="topbar-title">@ViewData["Title"]</span>
                 </div>
                 <div class="topbar-right">
-                    <div class="topbar-avatar">BL</div>
+                    <partial name="_LoginPartial" />
                 </div>
             </header>
 
             <main class="page-content">
                 <partial name="_Notification" />
                 @RenderBody()
-            </main>
-
-            <footer class="page-footer">
-                <span>&copy; 2026 BookShelf</span>
-                <a asp-controller="Home" asp-action="Privacy">Privacy policy</a>
-            </footer>
+            </main>            
         </div>
 
     </div>

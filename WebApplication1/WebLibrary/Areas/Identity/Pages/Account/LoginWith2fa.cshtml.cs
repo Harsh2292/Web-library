@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using WebLibrary.Data;
+using WebLibrary.Models;
 
 namespace WebLibrary.Areas.Identity.Pages.Account;
 

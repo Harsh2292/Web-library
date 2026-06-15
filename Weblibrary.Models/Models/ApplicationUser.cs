@@ -4,7 +4,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebLibrary.Areas.Identity.Pages.Account
+namespace WebLibrary.Models
 {
     public class ApplicationUser : IdentityUser
     {

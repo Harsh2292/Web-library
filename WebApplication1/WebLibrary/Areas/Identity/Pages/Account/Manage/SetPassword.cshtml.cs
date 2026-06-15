@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebLibrary.Data;
+using WebLibrary.Models;
 
 namespace WebLibrary.Areas.Identity.Pages.Account.Manage;
 

@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using WebLibrary.Data;
+using WebLibrary.Models;
 
 namespace WebLibrary.Areas.Identity.Pages.Account;
 
