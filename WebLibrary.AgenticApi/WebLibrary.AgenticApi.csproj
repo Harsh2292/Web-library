@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>6994459f-eb0b-4e54-a5c4-e17e43414019</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.29.0" />
+    <PackageReference Include="itext7" Version="9.6.0" />
+    <PackageReference Include="Microsoft.Agents.AI" Version="1.10.0" />
+    <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.10.0" />
+    <PackageReference Include="Microsoft.Agents.AI.Workflows" Version="1.10.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
+    <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="10.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
+    <PackageReference Include="Pinecone.Client" Version="4.0.2" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,6 @@
+@WebLibrary.AgenticApi_HostAddress = http://localhost:5035
+
+GET {{WebLibrary.AgenticApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

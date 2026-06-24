@@ -74,3 +74,4 @@ nunit-*.xml
 *.chat.json
 copilot-chat/
 .history/
+appsettings.Development.json

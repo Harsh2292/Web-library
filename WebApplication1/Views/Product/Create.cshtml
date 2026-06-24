@@ -96,24 +96,12 @@
         tinymce.init({
           selector: 'textarea',
           plugins: [
-            // Core editing features
-            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-            // Your account includes a free trial of TinyMCE premium features
-            // Try the most popular premium features until Jun 16, 2026:
-            'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'advtemplate', 'tinymceai', 'uploadcare', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+            // Free and Open-Source core features
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons',
+            'link', 'lists', 'media', 'searchreplace', 'table',
+            'visualblocks', 'wordcount'
           ],
-          toolbar: 'undo redo | tinymceai-chat tinymceai-quickactions tinymceai-review | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-          tinycomments_mode: 'embedded',
-          tinycomments_author: 'Author name',
-          mergetags_list: [
-            { value: 'First.Name', title: 'First Name' },
-            { value: 'Email', title: 'Email' },
-          ],
-          tinymceai_token_provider: async () => {
-            await fetch(`https://demo.api.tiny.cloud/1/s0j4tem4anlwsg1pl3ohdxem2z1pl55bys0ndmzbta9xe4lu/auth/random`, { method: "POST", credentials: "include" });
-            return { token: await fetch(`https://demo.api.tiny.cloud/1/s0j4tem4anlwsg1pl3ohdxem2z1pl55bys0ndmzbta9xe4lu/jwt/tinymceai`, { credentials: "include" }).then(r => r.text()) };
-          },
-          uploadcare_public_key: 'e232b2e0544ff646c659',
+          toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | align lineheight | numlist bullist indent outdent | link media table | emoticons charmap | removeformat',
         });
 
          document.getElementById('coverUpload').addEventListener('change', function () {
@@ -132,5 +120,6 @@
             reader.readAsDataURL(file);
         });
     </script>
+
     <partial name="_ValidationScriptsPartial" />
 }

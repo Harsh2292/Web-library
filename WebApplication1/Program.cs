@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WebLibrary.Areas.Identity.Pages.Account;
 using WebLibrary.Data;
 using WebLibrary.DataAccess.Repository.IRepository;
-using Microsoft.AspNetCore.Identity;
-using WebLibrary.Areas.Identity.Pages.Account;
 using WebLibrary.Models;
+using WebLibrary.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseAuthorization();
+app.UseAuthentication();
 
 app.UseAuthorization();
 app.MapRazorPages();
@@ -38,6 +39,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
 
 app.Run();

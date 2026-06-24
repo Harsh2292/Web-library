@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="WebApplication1/WebLibrary.csproj" />
+  <Project Path="WebLibrary.AgenticApi/WebLibrary.AgenticApi.csproj" Id="985f5e9d-582d-4a27-bb02-c94bfa757923" />
   <Project Path="Weblibrary.DataAccess/WebLibrary.DataAccess.csproj" Id="36dd9abc-3d1e-4afb-a705-df2f0635df73" />
   <Project Path="Weblibrary.Models/WebLibrary.Models.csproj" Id="5b9ee846-83f2-46e1-b091-410a2f35c360" />
   <Project Path="WebLibrary.Utilities/WebLibrary.Utilities.csproj" Id="79a692f0-7317-4385-a095-81705badca5e" />
