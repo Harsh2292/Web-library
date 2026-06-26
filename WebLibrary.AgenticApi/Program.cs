@@ -1,11 +1,12 @@
 using Microsoft.Extensions.AI;
 using OpenAI;                  
-using System.ClientModel;
 using Serilog;
 using Serilog.Events;
+using System.ClientModel;
 using WebLibrary.AgenticApi.Agents;
 using WebLibrary.AgenticApi.Middleware;
 using WebLibrary.AgenticApi.Services;
+using WebLibrary.AgenticApi.Workflows;
 
 
 Log.Logger = new LoggerConfiguration()
@@ -31,7 +32,9 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IBlobFetcherService, BlobFetcherService>();
 builder.Services.AddScoped<IPdfExtractorService, PdfExtractorService>();
 builder.Services.AddScoped<IVectorDbService, VectorDbService>();
+builder.Services.AddScoped<IGuardrailService, GuardrailService>();
 builder.Services.AddScoped<IMetadataExtractorAgent, MetadataExtractorAgent>();
+builder.Services.AddScoped<IBookMetadataWorkflow, BookMetadataWorkflow>();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
